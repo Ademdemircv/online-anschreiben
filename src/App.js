@@ -10,6 +10,10 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    // ✅ Debug-Logs
+    console.log('cvFile:', cvFile);
+    console.log('jobFile:', jobFile);
+
     if (!cvFile || !jobFile) return;
     setLoading(true);
     const formData = new FormData();
@@ -17,9 +21,10 @@ function App() {
     formData.append('job', jobFile);
 
     try {
-      const res = await axios.post('https://[HIER_BACKEND_URL_EINFÜGEN]/generate', formData);
+      const res = await axios.post('https://anschreiben-backend.onrender.com/generate', formData);
       setOutput(res.data.text);
     } catch (err) {
+      console.error('Fehler beim Request:', err); // ✅ Noch mehr Debug
       setOutput('Fehler bei der Anfrage.');
     }
     setLoading(false);
